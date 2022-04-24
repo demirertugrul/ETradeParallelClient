@@ -18,6 +18,3 @@ export class AppComponent extends BaseComponent {
     this.spinnerHide(SpinnerType.BallClipRotate);
   }
 }
-$.get("https://localhost:7172/api/products",function(data){
-  console.log(data);
-})

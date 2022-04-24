@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -18,8 +19,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     AppRoutingModule,
     AdminModule,
     UiModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [{ provide: 'baseUrl', useValue: 'https://localhost:7172/api' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

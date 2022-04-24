@@ -1,0 +1,23 @@
+<button mat-raised-button color="primary" (click)="listAll()">List All</button>
+<mat-list>
+  <mat-list-item *ngFor="let product of products" class="mat-list-item">
+    <img
+      matListAvatar
+      src="https://productimages.hepsiburada.net/s/98/300-443/110000040847626.jpg"
+      alt="..."
+    />
+    <h3 matLine>
+      <strong>{{ product.name }}</strong>
+    </h3>
+    <p matLine>
+      <span> Price: {{ product.price }}</span>
+      <span class="demo-2"> Stock: {{ product.stock }} </span>
+    </p>
+    <button mat-raised-button color="primary" (click)="update(product)">
+      <i class="fa-solid fa-pen-circle">update</i>
+    </button>
+    <button mat-raised-button color="warn" (click)="delete(product.id)">
+      <i class="fa-solid fa-circle-trash">delete</i>
+    </button>
+  </mat-list-item>
+</mat-list>
