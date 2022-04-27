@@ -34,7 +34,7 @@ export class ProductService {
           let message = '';
           _errors.forEach((v, index) => {
             v.value.forEach((_v, _index) => {
-              message += `${_v}</br>`;
+              message += `<strong>${_v}</strong></br>`;
             });
           });
           errorCallBack(message);

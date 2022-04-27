@@ -12,8 +12,5 @@ export class BasketComponent extends BaseComponent implements OnInit {
     super(spinner);
   }
 
-  ngOnInit(): void {
-    this.spinnerShow(SpinnerType.BallScale);
-    this.spinnerHide(SpinnerType.BallScale);
-  }
+  ngOnInit(): void {}
 }

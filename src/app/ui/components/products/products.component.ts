@@ -12,8 +12,5 @@ export class ProductsComponent extends BaseComponent implements OnInit {
     super(spinner);
   }
 
-  ngOnInit(): void {
-    this.spinnerShow(SpinnerType.Timer);
-    this.spinnerHide(SpinnerType.Timer);
-  }
+  ngOnInit(): void {}
 }

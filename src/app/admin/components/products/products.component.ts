@@ -11,13 +11,7 @@ import { HttpClientService } from 'src/app/services/common/http-client.service';
 export class ProductsComponent implements OnInit {
   constructor(private http: HttpClientService) {}
   products: Product[];
-  deleteId: string = '1f44d230-7e26-4ff2-2159-08da24b90b5a';
-  ngOnInit(): void {
-    // this.get();
-    // this.post();
-    // this.put();
-    // this.delete(this.deleteId);
-  }
+  ngOnInit(): void {}
 
   get() {
     this.http
@@ -68,12 +62,5 @@ export class ProductsComponent implements OnInit {
         id
       )
       .subscribe();
-    this.http
-      .get<Product[]>({
-        controller: 'products',
-      })
-      .subscribe((data) => {
-        this.products = data;
-      });
   }
 }

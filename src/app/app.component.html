@@ -4,7 +4,9 @@
     <div class="col-sm-10">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">ETrade</a>
+          <a class="navbar-brand" href="#" id="laptop"
+            ><img src="../assets/pic/icons8-laptop-32.png" alt="" />
+          </a>
           <button
             class="navbar-toggler"
             type="button"
@@ -32,22 +34,6 @@
                 >
               </li>
               <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  aria-current="page"
-                  routerLink="basket"
-                  >Basket</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="btn btn-outline-success"
-                  type="submit"
-                  routerLink="admin"
-                  >ADMIN</a
-                >
-              </li>
-              <li class="nav-item">
                 <a class="nav-link">Link</a>
               </li>
               <li class="nav-item dropdown">
@@ -70,9 +56,6 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
-              </li>
             </ul>
             <form class="d-flex">
               <input
@@ -85,6 +68,29 @@
                 Search
               </button>
             </form>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  routerLink="basket"
+                  ><i class="fa-solid fa-cart-shopping"></i
+                ></a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="btn btn-outline-success"
+                  type="submit"
+                  routerLink="admin"
+                  ><i class="fa-solid fa-user-pen"></i
+                ></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" routerLink="admin"
+                  ><i class="fa-solid fa-arrow-right-to-bracket"></i
+                ></a>
+              </li>
+            </ul>
           </div>
         </div>
       </nav>

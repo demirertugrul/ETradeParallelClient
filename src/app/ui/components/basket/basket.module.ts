@@ -1,8 +1,9 @@
+//Angular Modules
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BasketComponent } from './basket.component';
 import { RouterModule } from '@angular/router';
 
+import { BasketComponent } from './basket.component';
 @NgModule({
   declarations: [BasketComponent],
   imports: [

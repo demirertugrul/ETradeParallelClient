@@ -11,8 +11,5 @@ export class DashboardComponent extends BaseComponent implements OnInit {
     super(spinner);
   }
 
-  ngOnInit(): void {
-    this.spinnerShow(SpinnerType.BallScaleRipple);
-    this.spinnerHide(SpinnerType.BallScaleRipple);
-  }
+  ngOnInit(): void {}
 }

@@ -13,8 +13,5 @@ export class AppComponent extends BaseComponent {
     super(spinner);
   }
 
-  ngOnInit(): void {
-    this.spinnerShow(SpinnerType.BallClipRotate);
-    this.spinnerHide(SpinnerType.BallClipRotate);
-  }
+  ngOnInit(): void {}
 }
