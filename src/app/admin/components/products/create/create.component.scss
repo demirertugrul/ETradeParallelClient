@@ -5,6 +5,10 @@
 }
 .product-create {
   margin: 0.5rem 1rem;
+  color: aqua;
+}
+.mat-label {
+  color: aqua;
 }
 button {
   margin: 0.5rem 1rem;
@@ -12,4 +16,11 @@ button {
   justify-content: center;
   align-self: center;
   width: 10rem;
+  color: aqua;
+  background-color: transparent;
+  transition: 0.2s ease-in-out 0s;
+}
+
+button:hover {
+  transform: scale(1.05);
 }

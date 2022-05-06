@@ -15,6 +15,7 @@ export class ProductsComponent implements OnInit {
   @ViewChild(ListComponent) listComponents: ListComponent; //! ÖNEMLİ: Mutlaka type belirt.
 
   createdProduct(productCreate: ProductCreate) {
-    this.listComponents.reloadProducts(); // yukarda type belirtmediğim için methodu çağıramadım
+    this.listComponents.getProducts(); // yukarda type belirtmediğim için methodu çağıramadım
   }
 }
+// list componentta button tamamen kaplıycak ve urunler list edicek css ile ayarla delete update islemlerini hallet.

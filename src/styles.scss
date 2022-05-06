@@ -1,1 +1,6 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+body {
+  background: url("./assets/pic/592236-future-cyberpunk.jpg") no-repeat center
+    fixed;
+  background-size: cover;
+}

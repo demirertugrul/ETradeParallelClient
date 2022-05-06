@@ -38,7 +38,10 @@ export class ListComponent extends SpinnerBaseComponent implements OnInit {
     'stock',
     'createdDate',
     'updatedDate',
+    'editAndDelete',
   ];
+  buttonHidden: boolean = false;
+  buttonHiddenTemp: boolean = true;
   allProducts: ProductList[] = [];
   dataSource: MatTableDataSource<ProductList> =
     new MatTableDataSource<ProductList>();
@@ -51,8 +54,13 @@ export class ListComponent extends SpinnerBaseComponent implements OnInit {
   }
 
   async reloadProducts() {
+    this.buttonHidden = this.buttonHiddenTemp;
     await this.getProducts();
   }
+
+  async editProduct() {}
+
+  async deleteProduct() {}
 
   async getProducts() {
     this.spinnerShow(SpinnerType.BallScale);
@@ -67,8 +75,16 @@ export class ListComponent extends SpinnerBaseComponent implements OnInit {
             messagePosition: AlertifyMessagePosition.TopCenter,
           })
       );
-
+    // debugger;
+    console.log(allProducts.products);
+    allProducts.products.map((p) => {
+      p.updatedDate.toString().startsWith('0001')
+        ? { ...p, updatedDate: 'not updated' }
+        : p;
+    });
+    console.log(allProducts.products);
     this.dataSource = new MatTableDataSource<ProductList>(allProducts.products);
-    this.paginator.pageIndex = allProducts.counts;
+    // this.paginator.pageIndex = allProducts.counts;
+    this.paginator.length = allProducts.counts;
   }
 }

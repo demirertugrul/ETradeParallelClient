@@ -1,5 +1,36 @@
-button {
-}
 table {
   width: 100%;
+}
+
+.table {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  top: 0px;
+}
+table th,
+td {
+  color: azure;
+}
+button {
+  position: relative;
+  margin: 0.5rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+  align-items: center;
+  z-index: 1;
+  width: 10rem;
+  background-color: transparent;
+  height: 3rem;
+  font-size: 1rem;
+  color: aqua;
+  font-weight: 600;
+  top: 2px;
+  left: 35%;
+  transition: 0.2s ease-in-out 0s;
+}
+button:hover {
+  transform: scale(1.05);
 }
