@@ -14,6 +14,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [ProductsComponent, ListComponent, CreateComponent],
@@ -30,6 +32,8 @@ import { MatListModule } from '@angular/material/list';
     MatInputModule,
     MatButtonModule,
     MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
 })
 export class ProductsModule {}

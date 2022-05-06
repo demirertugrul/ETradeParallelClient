@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/contracts/product/product';
-import { ListResponseModel } from 'src/app/contracts/responses/list-response-model';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ProductCreate } from 'src/app/contracts/product/product-create';
 import { HttpClientService } from 'src/app/services/common/http-client.service';
+import { ListComponent } from './list/list.component';
 
 @Component({
   selector: 'app-products',
@@ -10,57 +10,11 @@ import { HttpClientService } from 'src/app/services/common/http-client.service';
 })
 export class ProductsComponent implements OnInit {
   constructor(private http: HttpClientService) {}
-  products: Product[];
   ngOnInit(): void {}
 
-  get() {
-    this.http
-      .get<Product[]>({
-        controller: 'products',
-      })
-      .subscribe((res) => {
-        this.products = res;
-        console.log(res);
-      });
-  }
+  @ViewChild(ListComponent) listComponents: ListComponent; //! ÖNEMLİ: Mutlaka type belirt.
 
-  post() {
-    this.http
-      .post<Product>(
-        {
-          controller: 'products',
-        },
-        {
-          name: 'PC 2',
-          price: 10500,
-          stock: 100,
-        }
-      )
-      .subscribe();
-  }
-  put() {
-    this.http
-      .put<Product>(
-        {
-          controller: 'products',
-        },
-        {
-          id: '5b93d84a-a20b-4bc5-adf2-60c3ea57e4c5',
-          name: 'PC 2',
-          price: 15500,
-          stock: 50,
-        }
-      )
-      .subscribe();
-  }
-  delete(id: string) {
-    this.http
-      .delete(
-        {
-          controller: 'products',
-        },
-        id
-      )
-      .subscribe();
+  createdProduct(productCreate: ProductCreate) {
+    this.listComponents.reloadProducts(); // yukarda type belirtmediğim için methodu çağıramadım
   }
 }

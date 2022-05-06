@@ -1,6 +1,7 @@
 import { NgxSpinnerService } from 'ngx-spinner';
+import { SpinnerType } from '../contracts/serviceOptions/spinner';
 
-export class BaseComponent {
+export class SpinnerBaseComponent {
   constructor(private spinner: NgxSpinnerService) {}
 
   spinnerShow(spinnerType: SpinnerType) {
@@ -9,15 +10,7 @@ export class BaseComponent {
 
   spinnerHide(spinnerType: SpinnerType) {
     setTimeout(() => {
-      /** spinner ends after 5 seconds */
       this.spinner.hide(spinnerType);
     }, 1000);
   }
-}
-
-export enum SpinnerType {
-  BallScale = 'ballscale',
-  BallClipRotate = 'ballcliprotate',
-  BallScaleRipple = 'ballscaleripple',
-  Timer = 'timer',
 }

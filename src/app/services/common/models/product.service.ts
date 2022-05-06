@@ -1,11 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Product } from 'src/app/contracts/product/product';
+import { lastValueFrom } from 'rxjs';
 import { ProductCreate } from 'src/app/contracts/product/product-create';
-import { ProductUpdate } from 'src/app/contracts/product/product-update';
+import { ProductList } from 'src/app/contracts/product/product-list';
 import { HttpClientService } from '../http-client.service';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -42,34 +40,29 @@ export class ProductService {
       );
   }
 
-  listAll(id?: string, successCallBack?: any): Observable<Product[]> {
-    return this.httpClient.get<Product[]>({
+  async read(
+    page: number = 0,
+    size: number = 5,
+    successCallBack?: () => void,
+    errorCallBack?: (errorMessage: string) => void
+  ): Promise<{ counts: number; products: ProductList[] }> {
+    const getProducts = await this.httpClient.get<{
+      counts: number;
+      products: ProductList[];
+    }>({
       controller: 'products',
-    }); // burada subscribe olup succesCallBack çağırmıştık ama listAll'un çağrıldığı yerde subscribe olduk ve orada callbacki çağırdık
-  }
-
-  delete(id: string) {
-    this.httpClient
-      .delete(
-        {
-          controller: 'products',
-        },
-        id
-      )
-      .subscribe();
-  }
-
-  update(model: ProductUpdate) {
-    this.httpClient.put<ProductUpdate>(
-      {
-        controller: 'products',
-      },
-      {
-        id: model.id,
-        name: model.name,
-        price: model.price,
-        stock: model.stock,
-      }
-    );
+      querySTring: `page=${page}&size=${size}`,
+    });
+    const promiseData: Promise<{ counts: number; products: ProductList[] }> =
+      lastValueFrom(getProducts);
+    console.log(getProducts);
+    promiseData
+      .then((d) => {
+        successCallBack();
+      })
+      .catch((httpErrorResponse: HttpErrorResponse) => {
+        errorCallBack(httpErrorResponse.message);
+      });
+    return await promiseData;
   }
 }

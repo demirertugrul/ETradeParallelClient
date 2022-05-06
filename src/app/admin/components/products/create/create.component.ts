@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
+import { SpinnerBaseComponent } from 'src/app/base/base.component';
 import { ProductCreate } from 'src/app/contracts/product/product-create';
 import {
-  AlertifyService,
-  MessagePosition,
-  MessageType,
-} from 'src/app/services/admin/alertify.service';
+  AlertifyMessagePosition,
+  AlertifyMessageType,
+} from 'src/app/contracts/serviceOptions/alertify';
+import { SpinnerType } from 'src/app/contracts/serviceOptions/spinner';
+import { AlertifyService } from 'src/app/services/admin/alertify.service';
 import { ProductService } from 'src/app/services/common/models/product.service';
 
 @Component({
@@ -14,7 +15,7 @@ import { ProductService } from 'src/app/services/common/models/product.service';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent extends BaseComponent implements OnInit {
+export class CreateComponent extends SpinnerBaseComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private alertify: AlertifyService,
@@ -24,6 +25,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+  @Output() createdProduct: EventEmitter<ProductCreate> = new EventEmitter();
 
   create(
     name: HTMLInputElement,
@@ -42,16 +44,17 @@ export class CreateComponent extends BaseComponent implements OnInit {
         this.spinnerHide(SpinnerType.Timer);
         this.alertify.messages('Succesfully added.', {
           dismissOther: true,
-          messageType: MessageType.Success,
-          messagePosition: MessagePosition.BottomCenter,
+          messageType: AlertifyMessageType.Success,
+          messagePosition: AlertifyMessagePosition.BottomCenter,
         });
+        this.createdProduct.emit(productCreate);
       },
       (errorMessage: string) => {
         this.spinnerHide(SpinnerType.Timer);
         this.alertify.messages(errorMessage, {
           dismissOther: true,
-          messagePosition: MessagePosition.TopRight,
-          messageType: MessageType.Error,
+          messagePosition: AlertifyMessagePosition.TopRight,
+          messageType: AlertifyMessageType.Error,
         });
       }
     );

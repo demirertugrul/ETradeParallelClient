@@ -1,41 +1,74 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { BaseComponent, SpinnerType } from 'src/app/base/base.component';
-import { Product } from 'src/app/contracts/product/product';
-import { ProductUpdate } from 'src/app/contracts/product/product-update';
+
+import { SpinnerBaseComponent } from 'src/app/base/base.component';
+import { ProductList } from 'src/app/contracts/product/product-list';
+import { SpinnerType } from 'src/app/contracts/serviceOptions/spinner';
 import { ProductService } from 'src/app/services/common/models/product.service';
+import { AlertifyService } from 'src/app/services/admin/alertify.service';
+import {
+  AlertifyMessagePosition,
+  AlertifyMessageType,
+} from 'src/app/contracts/serviceOptions/alertify';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent extends BaseComponent implements OnInit {
-  products: Product[] = [];
+export class ListComponent extends SpinnerBaseComponent implements OnInit {
   constructor(
+    spinner: NgxSpinnerService,
     private productService: ProductService,
-    spinner: NgxSpinnerService
+    private alertifyService: AlertifyService
   ) {
     super(spinner);
   }
+  displayedColumns: string[] = [
+    'name',
+    'price',
+    'stock',
+    'createdDate',
+    'updatedDate',
+  ];
+  allProducts: ProductList[] = [];
+  dataSource: MatTableDataSource<ProductList> =
+    new MatTableDataSource<ProductList>();
 
-  ngOnInit(): void {}
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @Output() createdProduct: EventEmitter<any> = new EventEmitter();
 
-  listAll(id?: string) {
+  async ngOnInit() {
+    // await this.getProducts();
+  }
+
+  async reloadProducts() {
+    await this.getProducts();
+  }
+
+  async getProducts() {
     this.spinnerShow(SpinnerType.BallScale);
-    this.productService
-      .listAll(id, () => {}) // burada subscribe oldugumuz ıcın
-      .subscribe((result) => {
-        this.products = result; // result'i donuyor ve
-        this.spinnerHide(SpinnerType.BallScale); // spinnerHide ' i çağırıyoruz işlem bitiyor.
-      });
-  }
+    const allProducts: { counts: number; products: ProductList[] } =
+      await this.productService.read(
+        this.paginator ? this.paginator.pageIndex : 0,
+        this.paginator ? this.paginator.pageSize : 5,
+        () => this.spinnerHide(SpinnerType.BallScale),
+        (errorMessage: string) =>
+          this.alertifyService.messages(errorMessage, {
+            messageType: AlertifyMessageType.Error,
+            messagePosition: AlertifyMessagePosition.TopCenter,
+          })
+      );
 
-  delete(id: string) {
-    this.productService.delete(id);
-  }
-
-  update(model: ProductUpdate) {
-    this.productService.update(model); // ! todo
+    this.dataSource = new MatTableDataSource<ProductList>(allProducts.products);
+    this.paginator.pageIndex = allProducts.counts;
   }
 }

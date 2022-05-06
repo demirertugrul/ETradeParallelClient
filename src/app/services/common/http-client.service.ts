@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { HttpParameters } from '../../contracts/serviceOptions/httpParameters';
 @Injectable({
   providedIn: 'root',
 })
@@ -21,7 +21,9 @@ export class HttpClientService {
     if (httpParameters.fullEndPoint) {
       url = httpParameters.fullEndPoint;
     } else {
-      url = `${this.url(httpParameters)}${id ? `/${id}` : ''}`;
+      url = `${this.url(httpParameters)}${id ? `/${id}` : ''}${
+        httpParameters.querySTring ? `?${httpParameters.querySTring}` : ''
+      }`;
     }
     return this.httpClient.get<T>(url, { headers: httpParameters.headers });
   }
@@ -34,7 +36,9 @@ export class HttpClientService {
     if (httpParameters.fullEndPoint) {
       url = httpParameters.fullEndPoint;
     } else {
-      url = `${this.url(httpParameters)}`;
+      url = `${this.url(httpParameters)}${
+        httpParameters.querySTring ? `?${httpParameters.querySTring}` : ''
+      }`;
     }
     return this.httpClient.post<T>(url, body, {
       headers: httpParameters.headers,
@@ -49,7 +53,9 @@ export class HttpClientService {
     if (httpParameters.fullEndPoint) {
       url = httpParameters.fullEndPoint;
     } else {
-      url = `${this.url(httpParameters)}`;
+      url = `${this.url(httpParameters)}${
+        httpParameters.querySTring ? `?${httpParameters.querySTring}` : ''
+      }`;
     }
     return this.httpClient.put<T>(url, body, {
       headers: httpParameters.headers,
@@ -64,17 +70,10 @@ export class HttpClientService {
     if (httpParameters.fullEndPoint) {
       url = httpParameters.fullEndPoint;
     } else {
-      url = `${this.url(httpParameters)}/${id}`;
+      url = `${this.url(httpParameters)}/${id}${
+        httpParameters.querySTring ? `?${httpParameters.querySTring}` : ''
+      }`;
     }
     return this.httpClient.delete<T>(url, { headers: httpParameters.headers });
   }
-}
-
-export class HttpParameters {
-  baseUrl?: string;
-  action?: string;
-  controller?: string;
-  fullEndPoint?: string;
-  headers?: HttpHeaders;
-  // authorization?:string;
 }
