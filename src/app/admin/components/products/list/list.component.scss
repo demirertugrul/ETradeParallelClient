@@ -1,7 +1,10 @@
 table {
   width: 100%;
+  background-color: transparent;
+  border: none;
 }
 
+// style="background-color: transparent; border: none; width: 75%"
 .table {
   position: relative;
   margin: 0;
@@ -12,25 +15,22 @@ table th,
 td {
   color: azure;
 }
-button {
-  position: relative;
+button,
+i {
   margin: 0.5rem 1rem;
-  display: flex;
-  justify-content: center;
-  align-self: center;
-  text-align: center;
-  align-items: center;
-  z-index: 1;
-  width: 10rem;
+  width: 10px;
   background-color: transparent;
-  height: 3rem;
-  font-size: 1rem;
   color: aqua;
-  font-weight: 600;
-  top: 2px;
   left: 35%;
   transition: 0.2s ease-in-out 0s;
 }
+i:hover,
 button:hover {
+  cursor: pointer;
   transform: scale(1.05);
+}
+
+.mat-paginator {
+  background-color: transparent;
+  color: aqua;
 }

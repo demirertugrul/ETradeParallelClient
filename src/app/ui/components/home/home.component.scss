@@ -1,0 +1,21 @@
+.content {
+  padding: 16px;
+}
+
+.content > mat-card {
+  margin: 10px;
+  width: 200px;
+  cursor: pointer;
+  transition: 0.1s ease-in-out 0s;
+}
+mat-card:hover {
+  transform: scale(1.01);
+  cursor: pointer;
+}
+button {
+  color: aquamarine;
+}
+.example-header-image {
+  background-image: url("../../../../assets/pic/592236-future-cyberpunk.jpg");
+  background-size: cover;
+}

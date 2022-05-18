@@ -1,12 +1,9 @@
 export class ToastrOptions {
-  message: string = 'Toastr-Message';
-  title: string = 'Toastr-Title';
-  position: ToastMessagePosition = ToastMessagePosition.BottomLeft;
-  type: ToastMessageType = ToastMessageType.Info;
-  timeOut: number = 1000;
+  messagePosition: ToastrMessagePosition = ToastrMessagePosition.BottomLeft;
+  messageType: ToastrMessageType = ToastrMessageType.Info;
 }
 
-export enum ToastMessagePosition {
+export enum ToastrMessagePosition {
   TopRight = 'toast-top-right',
   BottomRight = 'toast-bottom-right',
   BottomLeft = 'toast-bottom-left',
@@ -17,7 +14,7 @@ export enum ToastMessagePosition {
   BottomCenter = 'toast-bottom-center',
 }
 
-export enum ToastMessageType {
+export enum ToastrMessageType {
   Success = 'success',
   Info = 'info',
   Warning = 'warning',

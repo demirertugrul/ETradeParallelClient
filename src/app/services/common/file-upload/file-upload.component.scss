@@ -1,0 +1,17 @@
+button {
+  margin: 0.5rem 1rem;
+  background-color: transparent;
+  color: #fff;
+  left: 35%;
+  transition: 0.2s ease-in-out 0s;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 10rem;
+}
+
+button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}

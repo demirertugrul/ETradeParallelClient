@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SpinnerBaseComponent } from 'src/app/base/base.component';
+import { FileUploadOptions } from 'src/app/contracts/file-upload-options';
 import { ProductCreate } from 'src/app/contracts/product/product-create';
 import {
   AlertifyMessagePosition,
@@ -26,6 +27,13 @@ export class CreateComponent extends SpinnerBaseComponent implements OnInit {
 
   ngOnInit(): void {}
   @Output() createdProduct: EventEmitter<ProductCreate> = new EventEmitter();
+  @Output() fileUploadOptions: Partial<FileUploadOptions> = {
+    controller: 'products',
+    action: 'upload',
+    explanation: 'Seç veya sürükle...',
+    isAdmin: true,
+    accept: '.png,.jpg,.jpeg,.json',
+  };
 
   create(
     name: HTMLInputElement,
@@ -42,7 +50,7 @@ export class CreateComponent extends SpinnerBaseComponent implements OnInit {
       productCreate,
       () => {
         this.spinnerHide(SpinnerType.Timer);
-        this.alertify.messages('Succesfully added.', {
+        this.alertify.message('Succesfully added.', {
           dismissOther: true,
           messageType: AlertifyMessageType.Success,
           messagePosition: AlertifyMessagePosition.BottomCenter,
@@ -51,7 +59,7 @@ export class CreateComponent extends SpinnerBaseComponent implements OnInit {
       },
       (errorMessage: string) => {
         this.spinnerHide(SpinnerType.Timer);
-        this.alertify.messages(errorMessage, {
+        this.alertify.message(errorMessage, {
           dismissOther: true,
           messagePosition: AlertifyMessagePosition.TopRight,
           messageType: AlertifyMessageType.Error,

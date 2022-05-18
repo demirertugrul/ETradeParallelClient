@@ -8,11 +8,7 @@
 </button>
 <div class="table">
   <div class="mat-elevation-z8">
-    <table
-      mat-table
-      [dataSource]="dataSource"
-      style="background-color: transparent; border: none"
-    >
+    <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>N̴͍̲̭̭̪̠͖͉̬̍͒̏̀̅͋̎͘ȁ̷̢̡̛͎͔̻̫̜́̅̔̅̋͒̾̓ṁ̶̗̫̦͇̹̤͎̤̓̿̏͊͜e̷̡̹̦͙̼͚̝̣̯̽</th>
         <td mat-cell *matCellDef="let element">{{ element.name }}</td>
@@ -38,37 +34,34 @@
       <ng-container matColumnDef="updatedDate">
         <th mat-header-cell *matHeaderCellDef>U̸̫̖̝̹͔͓̦̍́̽̏͑͆̆͒̆p̶̫͙̻̰̤̫͉͒̑̈́̃͘̕͠d̷̞͉̭͔̬̤̥̑̎̒͜a̵̟̬̋͊̈́̀̿̆̉̈́͘͝t̸̤̪͎͋̎̿̑̕ě̸̝̙͕͎̻̽́̐͒̾́̕d̸̘̦͌ ̴̭̰͈̪̓̊̈́́̿͘̕̚D̷͓̪͇͔̼͉͉̱̋͑̃̀̂̇͘ä̵͙͈̦̱̝̣̥̩̪́͊̓̽́̊̿͂̒͜͝t̵̼̰͙͔̳̘̆̎̾̂͋̃̋͘e̸͚̲͓̪̼̓̓͌͑̉̚̚</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.updatedDate | date }}
+          {{ element.updatedDate | date: "null" }}
         </td>
       </ng-container>
-
-      <ng-container matColumnDef="editAndDelete">
+      <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell mat-cell *matCellDef="let element">
-          <!-- <button
-            style="display: inline-block"
-            mat-list-item
-            (click)="editProduct()"
-          >
-            <i class="fas fa-edit"></i>
-          </button>
-          <button
-            style="display: inline-block"
-            mat-list-item
-            (click)="deleteProduct()"
-          >
-            <i class="fa fa-trash"></i>
-          </button> -->
-        </td>
+        <td
+          appDelete
+          [id]="element.id"
+          controller="products"
+          (callback)="getProducts()"
+          mat-cell
+          *matCellDef="let element"
+        ></td>
       </ng-container>
 
+      <ng-container matColumnDef="update">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td appUpdate mat-cell *matCellDef="let element">
+          <i class="fas fa-edit"></i>todo
+        </td>
+      </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
     <mat-paginator
+      class="mat-paginator"
       (page)="reloadProducts()"
-      style="background-color: transparent; color: aqua"
       [pageSizeOptions]="[5, 10, 20]"
       showFirstLastButtons
       aria-label="Select page of periodic elements"

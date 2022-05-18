@@ -6,6 +6,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   constructor() {}
-
+  gridColumns = 3;
   ngOnInit(): void {}
 }

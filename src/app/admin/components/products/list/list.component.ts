@@ -38,7 +38,8 @@ export class ListComponent extends SpinnerBaseComponent implements OnInit {
     'stock',
     'createdDate',
     'updatedDate',
-    'editAndDelete',
+    'delete',
+    'update',
   ];
   buttonHidden: boolean = false;
   buttonHiddenTemp: boolean = true;
@@ -50,17 +51,13 @@ export class ListComponent extends SpinnerBaseComponent implements OnInit {
   @Output() createdProduct: EventEmitter<any> = new EventEmitter();
 
   async ngOnInit() {
-    // await this.getProducts();
+    await this.getProducts();
   }
 
   async reloadProducts() {
     this.buttonHidden = this.buttonHiddenTemp;
     await this.getProducts();
   }
-
-  async editProduct() {}
-
-  async deleteProduct() {}
 
   async getProducts() {
     this.spinnerShow(SpinnerType.BallScale);
@@ -70,19 +67,17 @@ export class ListComponent extends SpinnerBaseComponent implements OnInit {
         this.paginator ? this.paginator.pageSize : 5,
         () => this.spinnerHide(SpinnerType.BallScale),
         (errorMessage: string) =>
-          this.alertifyService.messages(errorMessage, {
+          this.alertifyService.message(errorMessage, {
             messageType: AlertifyMessageType.Error,
             messagePosition: AlertifyMessagePosition.TopCenter,
           })
       );
     // debugger;
-    console.log(allProducts.products);
-    allProducts.products.map((p) => {
-      p.updatedDate.toString().startsWith('0001')
-        ? { ...p, updatedDate: 'not updated' }
-        : p;
-    });
-    console.log(allProducts.products);
+    // const updatedProducts: ProductList[] = allProducts.products.map((p) =>
+    //   p.updatedDate.toString().startsWith('0001')
+    //     ? { ...p, updatedDate: new Date(-8640000000000000) }
+    //     : p
+    // );
     this.dataSource = new MatTableDataSource<ProductList>(allProducts.products);
     // this.paginator.pageIndex = allProducts.counts;
     this.paginator.length = allProducts.counts;
