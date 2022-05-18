@@ -2,6 +2,7 @@
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { NgxFileDropEntry, FileSystemFileEntry } from 'ngx-file-drop';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 //Project's
 import {
@@ -12,6 +13,7 @@ import {
   AlertifyMessagePosition,
   AlertifyMessageType,
 } from 'src/app/contracts/serviceOptions/alertify';
+import { SpinnerType } from 'src/app/contracts/serviceOptions/spinner';
 import {
   ToastrMessagePosition,
   ToastrMessageType,
@@ -32,7 +34,8 @@ export class FileUploadComponent {
     private httpClientService: HttpClientService,
     private alertifyService: AlertifyService,
     private customToastrService: CustomToastrService,
-    private dialogService: DialogServiceService
+    private dialogService: DialogServiceService,
+    private spinner: NgxSpinnerService
   ) {}
 
   public files: NgxFileDropEntry[];
@@ -53,6 +56,7 @@ export class FileUploadComponent {
       componentType: FileUploadDialogComponent,
       data: FileUploadDialogState.Yes,
       afterClosed: () => {
+        this.spinner.show(SpinnerType.Timer);
         this.httpClientService
           .post(
             {
@@ -65,6 +69,7 @@ export class FileUploadComponent {
           )
           .subscribe(
             (data) => {
+              this.spinner.hide(SpinnerType.Timer);
               const message: string = 'Dosyalar başarıyla yüklenmiştir...';
               if (this.options.isAdmin) {
                 this.alertifyService.message(message, {
@@ -80,6 +85,7 @@ export class FileUploadComponent {
               }
             },
             (errorResponse: HttpErrorResponse) => {
+              this.spinner.hide(SpinnerType.Timer);
               const message: string = 'Dosyalar yüklenirken bir hata oluşt...';
               if (this.options.isAdmin) {
                 this.alertifyService.message(message, {
